@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 from skimage.transform import resize
 import seaborn as sns
 import cv2
-
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 #model weight location: C:\Users\doguk\yolov5\runs\train\my_tree_detector2\weights
-model = torch.hub.load("ultralytics/yolov5", "custom", model="C:/Users/doguk/yolov5/runs/train/my_tree_detector2/weights/best.pt")
+modelPath = "C:/Users/doguk/yolov5/runs/train/my_tree_detector2/weights/best.pt"
+model = torch.hub.load("C:/Users/doguk/yolov5", "custom", path="C:/Users/doguk/yolov5/runs/train/my_tree_detector2/weights/best.pt",force_reload=True,source='local')
 
 def DetectTrees(imagePath):
     #Perform inference
@@ -16,8 +18,10 @@ def DetectTrees(imagePath):
     return results.xyxy[0].numpy()
 
 def CreateDensityMap(treeCoords, imageShape):
+    x, y = treeCoords[:, 0], treeCoords[:, 1]
+    data = np.column_stack((x, y))
     #Perform kernel density estimation
-    kde = sns.kdeplot(treeCoords[:, 0], treeCoords[:, 1], cmap="viridis", shade=True, bw_adjust=0.5)
+    kde = sns.kdeplot(data=data, fill=True, bw_adjust=0.5)
     density_map = np.array(kde.get_figure().canvas.renderer.buffer_rgba())[:, :, :3]
 
     #Resize the density map to match the input image shape
@@ -41,7 +45,7 @@ def VisualizeResults(image_path, detections):
 #image output path: C:\Users\doguk\Downloads\DataSet\Tree_counting\output
 #image test path: C:\Users\doguk\Downloads\DataSet\Tree_counting\test\images
 #it takes only one image for now.
-image_path = "C:/Users/doguk/Downloads/DataSet/Tree_counting/test/images/image1.jpg"
+image_path = "C:/Users/doguk/Downloads/DataSet/Tree_counting/test/images/cd_261945_4_174267_4_19_jpg.rf.9dab2691f2b32079ea1acf22d09db856.jpg"
 detections = DetectTrees(image_path)
 tree_count = len(detections)
 print(f"Tree count: {tree_count}")
@@ -52,4 +56,3 @@ result_image = VisualizeResults(image_path, detections)
 #Save and display the images
 plt.imsave("C:/Users/doguk/Downloads/DataSet/Tree_counting/output/density_map.png", density_map)
 plt.imsave("C:/Users/doguk/Downloads/DataSet/Tree_counting/output/result_image.png", result_image[..., ::-1])
-

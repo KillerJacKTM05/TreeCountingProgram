@@ -11,3 +11,6 @@ attention (ver0.1): program can only take one image per cycle. You have to chang
 *******************
 output locations: where will the output images be created
 example: C:\Users\doguk\Downloads\DataSet\Tree_counting\output
+
+version 0.1.1
+First pretrained model weight added.

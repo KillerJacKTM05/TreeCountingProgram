@@ -1,0 +1,7 @@
+train: C:\Users\doguk\Downloads\DataSet\Tree_counting\train\images
+val: C:\Users\doguk\Downloads\DataSet\Tree_counting\valid\images
+test: C:\Users\doguk\Downloads\DataSet\Tree_counting\test\images
+
+nc: 1
+names: ['tree']
+

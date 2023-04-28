@@ -8,9 +8,9 @@ import seaborn as sns
 import cv2
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-#model weight location: C:\Users\doguk\yolov5\runs\train\my_tree_detector2\weights
-modelPath = "C:/Users/doguk/yolov5/runs/train/my_tree_detector2/weights/best.pt"
-model = torch.hub.load("C:/Users/doguk/yolov5", "custom", path="C:/Users/doguk/yolov5/runs/train/my_tree_detector2/weights/best.pt",force_reload=True,source='local')
+modelPath = "./models/best.pt"
+yoloPath = "./yolov5"
+model = torch.hub.load(yoloPath, "custom", path=modelPath,force_reload=True,source='local')
 
 def DetectTrees(imagePath):
     #Perform inference
@@ -54,5 +54,5 @@ density_map = CreateDensityMap(detections[:, :2], Image.open(image_path).size)
 result_image = VisualizeResults(image_path, detections)
 
 #Save and display the images
-plt.imsave("C:/Users/doguk/Downloads/DataSet/Tree_counting/output/density_map.png", density_map)
-plt.imsave("C:/Users/doguk/Downloads/DataSet/Tree_counting/output/result_image.png", result_image[..., ::-1])
+plt.imsave("./output/density_map.png", density_map)
+plt.imsave("./output/result_image.png", result_image[..., ::-1])

@@ -8,9 +8,12 @@ import seaborn as sns
 import cv2
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-modelPath = "./models/best.pt"
-yoloPath = "./yolov5"
-model = torch.hub.load(yoloPath, "custom", path=modelPath,force_reload=True,source='local')
+
+yoloPath = "yolov5"
+modelPath = "models/best.pt"
+if modelPath == None:
+    print('Model cannot be found')
+model = torch.hub.load(yoloPath, "custom", path=modelPath, force_reload=True,source='local')
 
 def DetectTrees(imagePath):
     #Perform inference
@@ -45,7 +48,7 @@ def VisualizeResults(image_path, detections):
 #image output path: C:\Users\doguk\Downloads\DataSet\Tree_counting\output
 #image test path: C:\Users\doguk\Downloads\DataSet\Tree_counting\test\images
 #it takes only one image for now.
-image_path = "C:/Users/doguk/Downloads/DataSet/Tree_counting/test/images/cd_261945_4_174267_4_19_jpg.rf.9dab2691f2b32079ea1acf22d09db856.jpg"
+image_path = "Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg"
 detections = DetectTrees(image_path)
 tree_count = len(detections)
 print(f"Tree count: {tree_count}")
@@ -54,5 +57,5 @@ density_map = CreateDensityMap(detections[:, :2], Image.open(image_path).size)
 result_image = VisualizeResults(image_path, detections)
 
 #Save and display the images
-plt.imsave("./output/density_map.png", density_map)
-plt.imsave("./output/result_image.png", result_image[..., ::-1])
+plt.imsave("output/density_map.png", density_map)
+plt.imsave("output/result_image.png", result_image[..., ::-1])

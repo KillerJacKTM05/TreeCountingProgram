@@ -19,13 +19,22 @@ model = torch.hub.load(yoloPath, "custom", path=modelPath, force_reload=True,sou
 def DetectTrees(imagePath):
     #Perform inference
     results = model(imagePath)
-    return results.xyxy[0].numpy()
+    xyxy = results.xyxy[0].numpy()
+    if len(xyxy) == 0:
+        print("No detections found in image.")
+        return None
+    return xyxy
 
 def CreateDensityMap(treeCoords, imageShape):
+    if treeCoords is None:
+        print("No detections to create density map.")
+        return None
+
     x, y = treeCoords[:, 0], treeCoords[:, 1]
     data = np.column_stack((x, y))
     #Perform kernel density estimation
     kde = sns.kdeplot(data=data, fill=True, bw_adjust=0.5)
+    kde.figure.canvas.draw()  # Force figure to draw itself
     density_map = np.array(kde.get_figure().canvas.renderer.buffer_rgba())[:, :, :3]
 
     #Resize the density map to match the input image shape
@@ -34,6 +43,16 @@ def CreateDensityMap(treeCoords, imageShape):
     plt.clf()
     return density_map
 
+def CreateScatterPlot(treeCoords):
+    if treeCoords is None:
+        print("No detections to create scatter plot.")
+        return None
+
+    x, y = treeCoords[:, 0], treeCoords[:, 1]
+    plt.scatter(x, y)
+    plt.savefig("output/scatter_plot.png")
+    plt.clf()
+    
 def VisualizeResults(image_path, detections):
     image = cv2.imread(image_path)
 
@@ -52,7 +71,7 @@ def VisualizeResults(image_path, detections):
 image_path = input('Give imagePath:')
 #image_path = "Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg"
 detections = DetectTrees(image_path)
-tree_count = len(detections)
+tree_count = 0 if detections is None else len(detections)
 print(f"Tree count: {tree_count}")
 
 f = open('output/treecount.txt', 'a')
@@ -60,9 +79,12 @@ f = open('output/treecount.txt', 'a')
 f.write('For: ' + image_path + ': '  + str(tree_count) + '\n')
 f.close()
 
-#density_map = CreateDensityMap(detections[:, :2], Image.open(image_path).size)
+density_map = CreateDensityMap(detections[:, :2] if detections is not None else None, Image.open(image_path).size)
+CreateScatterPlot(detections[:, :2] if detections is not None else None)
 result_image = VisualizeResults(image_path, detections)
 
 #Save and display the images
-#plt.imsave("output/density_map.png", density_map)
+if density_map is not None:
+    plt.imsave("output/density_map.png", density_map)
+    
 plt.imsave("output/result_image.png", result_image[..., ::-1])

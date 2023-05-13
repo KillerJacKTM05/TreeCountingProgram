@@ -49,7 +49,8 @@ def VisualizeResults(image_path, detections):
 #image output path: C:\Users\doguk\Downloads\DataSet\Tree_counting\output
 #image test path: C:\Users\doguk\Downloads\DataSet\Tree_counting\test\images
 #it takes only one image for now.
-image_path = "Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg"
+image_path = input('Give imagePath:')
+#image_path = "Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg"
 detections = DetectTrees(image_path)
 tree_count = len(detections)
 print(f"Tree count: {tree_count}")

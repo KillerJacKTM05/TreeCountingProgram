@@ -55,9 +55,14 @@ detections = DetectTrees(image_path)
 tree_count = len(detections)
 print(f"Tree count: {tree_count}")
 
-density_map = CreateDensityMap(detections[:, :2], Image.open(image_path).size)
+f = open('output/treecount.txt', 'a')
+
+f.write('For: ' + image_path + ': '  + str(tree_count) + '\n')
+f.close()
+
+#density_map = CreateDensityMap(detections[:, :2], Image.open(image_path).size)
 result_image = VisualizeResults(image_path, detections)
 
 #Save and display the images
-plt.imsave("output/density_map.png", density_map)
+#plt.imsave("output/density_map.png", density_map)
 plt.imsave("output/result_image.png", result_image[..., ::-1])

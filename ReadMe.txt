@@ -32,3 +32,9 @@ Some minor fixes.
 Started to work on brand-new dataset.
 Sample Train Prompt:
 python train.py --img 640 --batch 16 --epochs 100 --data C:\Users\doguk\Downloads\Tree_counting1\data.yaml --cfg yolov5m.yaml --weights yolov5m.pt --name Tree_weight_dataset_1
+
+version 0.1.6
+New weight added.
+
+version 0.1.7
+Most accurate and fast moving weight so far has been added.

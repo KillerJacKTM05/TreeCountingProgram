@@ -1,4 +1,0 @@
-For: Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg: 95
-For: Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg: 95
-For: Dataset/train/images/bp_262118_4_174541_4_19_jpg.rf.4f13d4f2edf6e474d53229cd1ca76b56.jpg: 95
-For: C:\Users\doguk\OneDrive\Belgeler\GitHub\TreeCountingProgram\Dataset\test\images\0_trees_jpg.rf.9f4b10cff8ba76fcccb7d5787d0fa4ac.jpg: 44

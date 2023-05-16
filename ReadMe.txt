@@ -41,3 +41,4 @@ Most accurate and fast moving weight so far has been added.
 
 version 0.1.8
 Larger and more complex weight trained from the same dataset of version 0.1.7 weight has been added. Pre-test images are pretty accurate.
+Attention: Because of the new foldering for weights, program will not work. You can quickly fix the hierarchy, or we will fix on the nex update.

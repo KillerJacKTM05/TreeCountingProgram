@@ -11,7 +11,7 @@ import sys
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 yoloPath = "yolov5"
-modelPath = "models/best.pt"
+modelPath = "models/Tree_weight_dataset_1/weights/best.pt"
 if modelPath == None:
     print('Model cannot be found')
 model = torch.hub.load(yoloPath, "custom", path=modelPath, force_reload=True,source='local')

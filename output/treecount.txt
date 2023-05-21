@@ -1,0 +1,3 @@
+For: C:/Users/ekoms/Documents/TreeCountingProgram/Dataset_2/test/images/101_trees_jpg.rf.da54c17fd620e96e4ff1e3ef883ee42d.jpg: 7
+For: C:/Users/ekoms/Documents/TreeCountingProgram/Dataset_1/test/images/April-2019-flipy-splitted_28_jpg.rf.0cbff8dae0b80d5396cf41baf00d743d.jpg: 0
+For: C:/Users/ekoms/Documents/TreeCountingProgram/Dataset_1/test/images/December-2015-flipy-splitted_81_jpg.rf.3d6ca14286b9feb654537d8f62b1e12c.jpg: 15
